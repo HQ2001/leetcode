@@ -97,4 +97,90 @@ public class Solution3 {
         return Math.max(max, end - maxRepeatIdx + 1);
     }
 
+    // 搜索插入位置
+    public int searchInsert(int[] nums, int target) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        int l = 0;
+        int r = nums.length - 1;
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (target > nums[mid]) {
+                l = mid + 1;
+            } else if (target < nums[mid]) {
+                r = mid;
+            } else {
+                return mid;
+            }
+        }
+        if (nums[l] < target) {
+            return l + 1;
+        } else {
+            return l;
+        }
+    }
+
+    int climbStairsA = 1;
+    int climbStairsB = 2;
+    // 爬楼梯
+    public int climbStairs(int n) {
+        if (n <= 2) {
+            return n;
+        }
+        for (int i = 3; i <= n; i++) {
+            int tmp = climbStairsB;
+            climbStairsB = climbStairsA + climbStairsB;
+            climbStairsA = tmp;
+        }
+        return climbStairsB;
+    }
+
+    // 二进制求和
+    public String addBinary(String a, String b) {
+        if (a.length() == 0) {
+            return b;
+        }
+        if (b.length() == 0) {
+            return a;
+        }
+        int idxA = a.length() - 1;
+        int idxB = b.length() - 1;
+        StringBuilder res = new StringBuilder();
+        int sum = 0;
+        while (idxA >= 0 || idxB >= 0 || sum > 0) {
+            char charA = idxA < 0 ? '0' : a.charAt(idxA);
+            char charB = idxB < 0 ? '0' : b.charAt(idxB);
+
+            sum += charA + charB - '0' * 2;
+            res.append(sum % 2);
+            sum = sum > 1 ? 1 : 0;
+            idxA --;
+            idxB --;
+        }
+        return res.reverse().toString();
+    }
+
+    // 二叉树的中序遍历
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        stack.push(root);
+        root = root.left;
+        while (root != null || stack.size() != 0) {
+            if (root != null) {
+                stack.push(root);
+                root = root.left;
+            } else {
+                root = stack.pop();
+                res.add(root.val);
+                root = root.right;
+            }
+        }
+        return res;
+    }
+
 }
