@@ -9,6 +9,7 @@ public class Solution3 {
         // int[] nums = {3, 2, 4};
         // solution.twoSum(nums, 6);
         solution.lengthOfLongestSubstring("abcabcbb");
+
     }
 
     // 两数之和
